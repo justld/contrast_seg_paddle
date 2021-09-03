@@ -6,3 +6,4 @@ A reproduction of Exploring Cross-Image Pixel Contrast for Semantic Segmentation
 4、训练环境：v100*4， paddlepaddle=2.1.2    
 5、训练vdl文件在output目录下  
 6、best_model百度云连接：链接：https://pan.baidu.com/s/1zdCFxPpEwbXe9aY7m3DRgQ 提取码：jlo6  
+7、本repo基于paddleseg实现，使用方法与paddleseg相同
