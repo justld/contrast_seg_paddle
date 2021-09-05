@@ -18,7 +18,7 @@ class ProjectionHead(nn.Layer):
                 nn.Conv2D(dim_in, dim_in, kernel_size=1),
                 layers.SyncBatchNorm(dim_in),
                 nn.ReLU(),
-                nn.Conv2D(dim_in, dim_in, kernel_size=1),
+                nn.Conv2D(dim_in, proj_dim, kernel_size=1),
             )
     def forward(self, x):
         return F.normalize(self.proj(x), p=2, axis=1)

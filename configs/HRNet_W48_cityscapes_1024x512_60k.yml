@@ -31,7 +31,7 @@ model:
   in_channels: 720
   num_classes: 19
   drop_prob: 0.1
-  proj_dim: 256
+  proj_dim: 720
 
 optimizer:
   type: sgd
