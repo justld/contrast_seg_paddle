@@ -7,5 +7,6 @@ A reproduction of Exploring Cross-Image Pixel Contrast for Semantic Segmentation
 5、40k及60k训练vdl文件在output目录下   
 6、40k best_model百度云连接：链接：https://pan.baidu.com/s/1zdCFxPpEwbXe9aY7m3DRgQ 提取码：jlo6  
 7、60k best_model百度云连接：链接：https://pan.baidu.com/s/13zYV83i-BjYhW4H8OmgAJg 提取码：b9ky  
-8、本repo基于paddleseg实现，使用方法与paddleseg相同 
-9、40k验证及训练aistudio地址：https://aistudio.baidu.com/aistudio/clusterprojectdetail/2333277
+8、本repo基于paddleseg实现，使用方法与paddleseg相同   
+9、60k验证及训练aistudio地址：https://aistudio.baidu.com/aistudio/clusterprojectdetail/2333277  
+10、由于验收标准由miou 80.18%变为82.2%， 40k训练未达到新标准，请使用60k配置进行训练    
