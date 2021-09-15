@@ -16,4 +16,4 @@ from .backbones import *
 from .losses import *
 
 
-from .hrnet import *
+from .hrnet_contrast import *

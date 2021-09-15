@@ -27,4 +27,4 @@ from .l1_loss import L1Loss
 from .mean_square_error_loss import MSELoss
 from .focal_loss import FocalLoss
 from .kl_loss import KLLoss
-from .contrast_cross_entropy_loss import *
+from .pixel_contrast_cross_entropy_loss import *

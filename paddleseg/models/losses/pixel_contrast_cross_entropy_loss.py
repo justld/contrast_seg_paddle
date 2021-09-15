@@ -1,3 +1,17 @@
+# Copyright (c) 2021 PaddlePaddle Authors. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import paddle
 import paddle.nn as nn
 import paddle.nn.functional as F
@@ -6,9 +20,24 @@ from paddleseg.cvlibs import manager
 
 
 @manager.LOSSES.add_component
-class PixelContrastLoss(nn.Layer):
+class PixelContrastCrossEntropyLoss(nn.Layer):
+    """
+    The PixelContrastCrossEntropyLoss implementation based on PaddlePaddle.
+
+    The original article refers to
+    Wenguan Wang, Tianfei Zhou, et al. "Exploring Cross-Image Pixel Contrast for Semantic Segmentation"
+    (https://arxiv.org/abs/2101.11939).
+
+    Args:
+        temperature (float, optional): Controling the numerical similarity of features. Default: 0.1.
+        base_temperature (float, optional): Controling the numerical range of contrast loss. Default: 0.07.
+        ignore_index (int, optional): Specifies a target value that is ignored
+            and does not contribute to the input gradient. Default ``255``.
+        max_samples (str, optional): Max sampling anchors. Default: 1024.
+        max_views (int): Sampled samplers of a class. Default: 100.
+    """
     def __init__(self, temperature=0.1, base_temperature=0.07, ignore_index=255, max_samples=1024, max_views=100):
-        super(PixelContrastLoss, self).__init__()
+        super(PixelContrastCrossEntropyLoss, self).__init__()
         self.temperature = temperature
         self.base_temperature = base_temperature
         self.ignore_index = ignore_index
@@ -83,9 +112,6 @@ class PixelContrastLoss(nn.Layer):
                 if indices is None:
                     raise UserWarning('hard sampling indice error')
 
-                # X_temp = X[ii, :, :]
-                # X_[X_ptr, :, :] = X_temp[indices]
-                # X_[X_ptr, :, :] = paddle.index_select(X[ii, :, :], indices.squeeze(1))
                 X_.append(paddle.index_select(X[ii, :, :], indices.squeeze(1)))
                 y_[X_ptr] = float(cls_id)
                 X_ptr += 1
@@ -95,8 +121,8 @@ class PixelContrastLoss(nn.Layer):
     def _contrastive(self, feats_, labels_):
         """
         Args:
-            feats_: sampled pixel, shape = [total_classes, n_view, feat_dim], total_classes = batch_size * single image classes
-            labels_: label, shape = [total_classes]
+            feats_ (Tensor): sampled pixel, shape = [total_classes, n_view, feat_dim], total_classes = batch_size * single image classes
+            labels_ (Tensor): label, shape = [total_classes]
         """
         anchor_num, n_view = feats_.shape[0], feats_.shape[1]
 
@@ -137,6 +163,7 @@ class PixelContrastLoss(nn.Layer):
         labels = labels.unsqueeze(1)
         labels = F.interpolate(labels, feats.shape[2:], mode='nearest')
         labels = labels.squeeze(1)
+
         assert labels.shape[-1] == feats.shape[-1], '{} {}'.format(labels.shape, feats.shape)
 
         batch_size = feats.shape[0]
