@@ -61,7 +61,7 @@ python -m paddle.distributed.launch train.py --config configs/HRNet_W48_cityscap
 ```
 
 ### step3: test
-You can download the pretrained model in [BaiduYun](https://pan.baidu.com/s/13zYV83i-BjYhW4H8OmgAJg). (Extraction code: b9ky)
+You can download the pretrained model in [BaiduYun](https://pan.baidu.com/s/1JiWDSGUOczS4WLDGINN3vg). (Extraction code: hwq7)
 ```bash
 python val.py --config configs/HRNet_W48_cityscapes_1024x512_60k.yml --model_path output/best_model/model.pdparams
 ```

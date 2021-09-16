@@ -58,7 +58,7 @@ python -m paddle.distributed.launch train.py --config configs/HRNet_W48_cityscap
 ```
 
 ### 第三步：测试
-在[百度云](https://pan.baidu.com/s/13zYV83i-BjYhW4H8OmgAJg) (提取码: b9ky)下载预训练模型，放入output/best_model文件夹。
+在[百度云](https://pan.baidu.com/s/1JiWDSGUOczS4WLDGINN3vg) (提取码: hwq7)下载预训练模型，放入output/best_model文件夹。
 ```bash
 python val.py --config configs/HRNet_W48_cityscapes_1024x512_60k.yml --model_path output/best_model/model.pdparams
 ```
